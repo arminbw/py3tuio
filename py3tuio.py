@@ -11,7 +11,7 @@ It is currently restricted to a 2D interactive surface and does not distinguish 
 
 class TuioServer(ServerThread):
     """
-    the TuioServer processes TUIO/OSC messages and gives access to
+    the TuioServer processes TUIO/OSC messages and gives access 
     to corresponding lists of TuioObjects
     """
     def __init__(self, port):
