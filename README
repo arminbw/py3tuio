@@ -5,7 +5,7 @@ py3tuio is a very basic, crude and compact implementation of a TUIO 1.x server w
 
 Requirements
 ============
-liblo ís a lightweight OSC implementation
+liblo is a lightweight OSC implementation
 pyliblo is a Python wrapper for liblo and available here: http://das.nasophon.de/pyliblo/
 
 Basic use (demo)
