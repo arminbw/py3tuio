@@ -6,7 +6,7 @@ import os
 
 """
 py3tuio is a very basic implementation of a TUIO 1.x server written in Python 3 using pyliblo.
-It is currently restricted to a 2D interactive surface and does not distinguish between different clients.
+It is restricted to 2D surfaces and does not distinguish between different clients.
 """
 
 class TuioServer(ServerThread):
@@ -62,7 +62,7 @@ class TuioServer(ServerThread):
            self._tuioObjectsNew = []
 
 class TuioObject():
-    """this represents a tuio object"""
+    """this represents a TUIO object"""
     def __init__(self, args, argsLength):
         if (len(args) != argsLength):
             raise ValueError("TUIO Message: wrong number of arguments")
@@ -92,7 +92,7 @@ def demo():
         sys.exit(str(err))
     server.start()
     while (True):
-        time.sleep(0.05)
+        time.sleep(0.1)
         try:
             os.system('cls' if os.name=='nt' else 'clear') # clear the screen
             for o in server.tuio2DCursors:
