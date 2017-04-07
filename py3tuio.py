@@ -5,13 +5,13 @@ import time
 import os
 
 """
-py3tuio is a very basic implementation of a TUIO 1.x server written in Python 3 using pyliblo.
-It is restricted to 2D surfaces and does not distinguish between different clients.
+py3tuio is a very basic implementation of a TUIO 1.x client written in Python 3 using pyliblo.
+It is restricted to 2D surfaces and does not distinguish between different servers.
 """
 
-class TuioServer(ServerThread):
+class TuioClient(ServerThread):
     """
-    the TuioServer processes TUIO/OSC messages and gives access 
+    the TuioClient processes TUIO/OSC messages and gives access 
     to corresponding lists of TuioObjects
     """
     def __init__(self, port):
@@ -87,22 +87,22 @@ class Tuio2DBlob(TuioObject):
     
 def demo():
     try:
-        server = TuioServer(3333)
+        client = TuioClient(3333)
     except ServerError as err:
         sys.exit(str(err))
-    server.start()
+    client.start()
     while (True):
         time.sleep(0.1)
         try:
             os.system('cls' if os.name=='nt' else 'clear') # clear the screen
-            for o in server.tuio2DCursors:
-                print ("2D cursor:   id: %s   x: %s   y: %s" % (o.sessionId, o.x, o.y))
-            for o in server.tuio2DObjects:
-                print ("2D object:   id: %s   x: %s   y: %s" % (o.sessionId, o.x, o.y))
-            for o in server.tuio2DBlobs:
-                print ("2D blob:   id: %s   x: %s   y: %s" % (o.sessionId, o.x, o.y))
+            for o in client.tuio2DCursors:
+                print ("2D cursor   id:{:2}   x: {:.6f}   y: {:.6f}".format(o.sessionId, o.x, o.y))
+            for o in client.tuio2DObjects:
+                print ("2D object   id:{:2}   x: {:.6f}   y: {:.6f}".format(o.sessionId, o.x, o.y))
+            for o in client.tuio2DBlobs:
+                print ("2D blob     id:{:2}   x: {:.6f}   y: {:.6f}".format(o.sessionId, o.x, o.y))
         except:
-            server.stop()
+            client.stop()
             raise
 
 if __name__ == '__main__':
