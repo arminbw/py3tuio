@@ -11,7 +11,7 @@ It is restricted to 2D surfaces and does not distinguish between different serve
 
 class TuioClient(ServerThread):
     """
-    the TuioClient processes TUIO/OSC messages and gives access 
+    the TuioClient processes TUIO/OSC messages and gives access
     to corresponding lists of TuioObjects
     """
     def __init__(self, port):
@@ -23,7 +23,7 @@ class TuioClient(ServerThread):
         self._tuioObjectsNew = []
         self._tuioObjectsOld = []
         self.fseq = 0
-       
+
     @make_method(None, None)
     def handleObjectMessage(self, path, args, types, src):
        """process the incoming TUIO/OSC messages"""
@@ -61,7 +61,7 @@ class TuioClient(ServerThread):
                    self.tuio2DBlob = self._tuioObjectsNew
            self._tuioObjectsNew = []
 
-class TuioObject():
+class TuioObject(object):
     """this represents a TUIO object"""
     def __init__(self, args, argsLength):
         if (len(args) != argsLength):
@@ -70,21 +70,21 @@ class TuioObject():
 class Tuio2DCursor(TuioObject):
     """this represents a TUIO 2D cursor"""
     def __init__(self, args):
-        super().__init__(args, 6)
+        super(Tuio2DCursor, self).__init__(args, 6)
         self.sessionId, self.x, self.y, self.xVelocity, self.yVelocity, self.acceleration = args[0:6]
-            
+
 class Tuio2DObject(TuioObject):
     """this represents a TUIO 2D object"""
     def __init__(self, args):
-        super().__init__(args, 10)
+        super(Tuio2DObject, self).__init__(args, 10)
         self.sessionId, self.markerId, self.x, self.y, self.angle, self.xVelocity, self.yVelocity, self.rotationSpeed, self.acceleration, self.rotationAcceleration = args[0:10]
-        
+
 class Tuio2DBlob(TuioObject):
     """this represents a TUIO 2D blob"""
     def __init__(self, args):
-        super().__init__(args, 12)
+        super(Tuio2DBlob, self).__init__(args, 12)
         self.sessionId, self.x, self.y, self.angle, self.width, self.height, self.area, self.xVelocity, self.yVelocity, self.rotationSpeed, self.acceleration, self.rotationAcceleration = args[0:12]
-    
+
 def demo():
     try:
         client = TuioClient(3333)
